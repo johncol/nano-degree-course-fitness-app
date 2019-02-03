@@ -1,12 +1,8 @@
-export function isBetween(num, x, y) {
-  if (num >= x && num <= y) {
-    return true;
-  }
+export const isBetween = (num, x, y) => {
+  return num >= x && num <= y;
+};
 
-  return false;
-}
-
-export function calculateDirection(heading) {
+export const calculateDirection = heading => {
   let direction = '';
 
   if (isBetween(heading, 0, 22.5)) {
@@ -32,12 +28,12 @@ export function calculateDirection(heading) {
   }
 
   return direction;
-}
+};
 
-export function timeToString(time = Date.now()) {
+export const timeToString = (time = Date.now()) => {
   const date = new Date(time);
   const todayUTC = new Date(
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   );
   return todayUTC.toISOString().split('T')[0];
-}
+};
