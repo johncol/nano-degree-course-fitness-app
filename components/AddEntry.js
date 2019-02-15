@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacityComponent } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+
 import { timeToString, getMetricsMetaInfo, MetricType } from '../src/js/utils/helpers';
 import Slider from './Slider';
 import Stepper from './Stepper';
 import DateHeader from './DateHeader';
+import AlreadyLogged from './AlreadyLogged';
+import TextButton from './TextButton';
 
-const SubmitButton = ({ onPress }) => (
-  <TouchableOpacityComponent onPress={onPress}>
-    <Text>Submit</Text>
-  </TouchableOpacityComponent>
-);
+const initialState = {
+  run: 0,
+  bike: 0,
+  swim: 0,
+  sleep: 0,
+  eat: 0
+};
 
 class AddEntry extends Component {
-  state = {
-    run: 0,
-    bike: 0,
-    swim: 0,
-    sleep: 0,
-    eat: 0
-  };
+  state = { ...initialState };
 
   increment = metric => {
     const { max, step } = getMetricsMetaInfo(metric);
@@ -78,26 +77,30 @@ class AddEntry extends Component {
   submit = () => {
     const key = timeToString();
     const entry = this.state;
+    console.log('TODO: handle submit for new entry');
     console.log('key: ', key);
     console.log('entry: ', entry);
+    this.setState({ ...initialState });
+  };
 
-    this.setState({
-      run: 0,
-      bike: 0,
-      swim: 0,
-      sleep: 0,
-      eat: 0
-    });
+  reset = () => {
+    console.log('TODO: handle reset');
+    this.setState({ ...initialState });
   };
 
   render() {
+    const { alreadyLogged } = this.props;
+    if (alreadyLogged) {
+      return <AlreadyLogged />;
+    }
+
     const metrics = Object.keys(this.state);
     const metricsInfo = getMetricsMetaInfo();
     return (
       <View>
         <DateHeader date={new Date().toLocaleDateString()} />
-        {metrics.map(metric => this.renderMetric(metricsInfo, metric))}
-        <SubmitButton onPress={this.submit} />
+        <View>{metrics.map(metric => this.renderMetric(metricsInfo, metric))}</View>
+        <TextButton onPress={this.submit}>Submit</TextButton>
       </View>
     );
   }
