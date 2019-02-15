@@ -1,14 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import AddEntry from './components/AddEntry';
 
 export default class App extends React.Component {
   render() {
     return (
-      <View>
-        <AddEntry>Hello</AddEntry>
+      <View style={styles.container}>
+        <AddEntry />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginLeft: 10,
+    marginRight: 10,
+    alignItems: 'stretch',
+    justifyContent: 'center'
+  }
+});
