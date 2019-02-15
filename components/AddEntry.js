@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { getMetricsMetaInfo } from '../src/js/utils/helpers';
+import { getMetricsMetaInfo, MetricType } from '../src/js/utils/helpers';
+import Slider from './Slider';
+import Stepper from './Stepper';
 
 class AddEntry extends Component {
   state = {
@@ -37,8 +39,39 @@ class AddEntry extends Component {
     });
   };
 
+  getMetricComponent = (metricsInfo, metric) => {
+    const { type, ...metricInfo } = metricsInfo[metric];
+    const metricValue = this.state[metric];
+    return type === MetricType.SLIDER ? (
+      <Slider
+        value={metricValue}
+        onChange={value => this.slide(metric, value)}
+        {...metricInfo}
+      />
+    ) : (
+      <Stepper
+        value={metricValue}
+        onIncrement={() => this.increment(metric)}
+        onDecrement={() => this.decrement(metric)}
+        {...metricInfo}
+      />
+    );
+  };
+
+  renderMetric = (metricsInfo, metric) => {
+    const { getIcon } = metricsInfo[metric];
+    return (
+      <View key={metric}>
+        {getIcon()}
+        {this.getMetricComponent(metricsInfo, metric)}
+      </View>
+    );
+  };
+
   render() {
-    return <View>{getMetricsMetaInfo('swim').getIcon()}</View>;
+    const metrics = Object.keys(this.state);
+    const metricsInfo = getMetricsMetaInfo();
+    return <View>{metrics.map(metric => this.renderMetric(metricsInfo, metric))}</View>;
   }
 }
 
