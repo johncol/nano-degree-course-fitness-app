@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { getMetricsMetaInfo, MetricType } from '../src/js/utils/helpers';
 import Slider from './Slider';
 import Stepper from './Stepper';
+import DateHeader from './DateHeader';
 
 class AddEntry extends Component {
   state = {
@@ -71,7 +72,12 @@ class AddEntry extends Component {
   render() {
     const metrics = Object.keys(this.state);
     const metricsInfo = getMetricsMetaInfo();
-    return <View>{metrics.map(metric => this.renderMetric(metricsInfo, metric))}</View>;
+    return (
+      <View>
+        <DateHeader date={new Date().toLocaleDateString()} />
+        {metrics.map(metric => this.renderMetric(metricsInfo, metric))}
+      </View>
+    );
   }
 }
 
