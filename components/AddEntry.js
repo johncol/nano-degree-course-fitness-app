@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { getMetricsMetaInfo, MetricType } from '../src/js/utils/helpers';
+import { View, Text, TouchableOpacityComponent } from 'react-native';
+import { timeToString, getMetricsMetaInfo, MetricType } from '../src/js/utils/helpers';
 import Slider from './Slider';
 import Stepper from './Stepper';
 import DateHeader from './DateHeader';
+
+const SubmitButton = ({ onPress }) => (
+  <TouchableOpacityComponent onPress={onPress}>
+    <Text>Submit</Text>
+  </TouchableOpacityComponent>
+);
 
 class AddEntry extends Component {
   state = {
@@ -69,6 +75,21 @@ class AddEntry extends Component {
     );
   };
 
+  submit = () => {
+    const key = timeToString();
+    const entry = this.state;
+    console.log('key: ', key);
+    console.log('entry: ', entry);
+
+    this.setState({
+      run: 0,
+      bike: 0,
+      swim: 0,
+      sleep: 0,
+      eat: 0
+    });
+  };
+
   render() {
     const metrics = Object.keys(this.state);
     const metricsInfo = getMetricsMetaInfo();
@@ -76,6 +97,7 @@ class AddEntry extends Component {
       <View>
         <DateHeader date={new Date().toLocaleDateString()} />
         {metrics.map(metric => this.renderMetric(metricsInfo, metric))}
+        <SubmitButton onPress={this.submit} />
       </View>
     );
   }
