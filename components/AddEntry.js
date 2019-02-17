@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
+import * as API from './../utils/api';
 import { timeToString, getMetricsMetaInfo, MetricType } from '../utils/helpers';
 import Slider from './Slider';
 import Stepper from './Stepper';
@@ -77,15 +78,14 @@ class AddEntry extends Component {
   submit = () => {
     const key = timeToString();
     const entry = this.state;
-    console.log('TODO: handle submit for new entry');
-    console.log('key: ', key);
-    console.log('entry: ', entry);
     this.setState({ ...initialState });
+    API.sumbitEntry(key, entry);
   };
 
   reset = () => {
-    console.log('TODO: handle reset');
     this.setState({ ...initialState });
+    const key = timeToString();
+    API.removeEntry(key);
   };
 
   render() {
