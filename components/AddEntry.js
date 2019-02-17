@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-import { timeToString, getMetricsMetaInfo, MetricType } from '../src/js/utils/helpers';
+import { timeToString, getMetricsMetaInfo, MetricType } from '../utils/helpers';
 import Slider from './Slider';
 import Stepper from './Stepper';
 import DateHeader from './DateHeader';

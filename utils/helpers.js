@@ -110,5 +110,5 @@ export const getMetricsMetaInfo = metric => {
       )
     }
   };
-  return metric ? info[metric] : metric;
+  return metric ? info[metric] : info;
 };
