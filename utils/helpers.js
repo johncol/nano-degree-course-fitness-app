@@ -112,3 +112,7 @@ export const getMetricsMetaInfo = metric => {
   };
   return metric ? info[metric] : info;
 };
+
+export const getDailyRemainderValue = () => ({
+  today: 'Hey! Do not forget to register your daily information'
+});
