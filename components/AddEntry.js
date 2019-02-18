@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
 
 import * as API from './../utils/api';
-import { timeToString, getMetricsMetaInfo, MetricType } from '../utils/helpers';
+import {
+  timeToString,
+  getMetricsMetaInfo,
+  MetricType,
+  getDailyRemainderValue
+} from '../utils/helpers';
 import Slider from './Slider';
 import Stepper from './Stepper';
 import DateHeader from './DateHeader';
 import AlreadyLogged from './AlreadyLogged';
 import TextButton from './TextButton';
+import { ActionCreator } from '../actions';
 
 const initialState = {
   run: 0,
@@ -78,20 +85,21 @@ class AddEntry extends Component {
   submit = () => {
     const key = timeToString();
     const entry = this.state;
-    this.setState({ ...initialState });
     API.sumbitEntry(key, entry);
+    this.props.addEntry(key, entry);
   };
 
   reset = () => {
-    this.setState({ ...initialState });
     const key = timeToString();
     API.removeEntry(key);
+    this.props.resetEntry(key);
+    this.setState({ ...initialState });
   };
 
   render() {
     const { alreadyLogged } = this.props;
     if (alreadyLogged) {
-      return <AlreadyLogged />;
+      return <AlreadyLogged onReset={this.reset} />;
     }
 
     const metrics = Object.keys(this.state);
@@ -106,4 +114,34 @@ class AddEntry extends Component {
   }
 }
 
-export default AddEntry;
+const stateToProps = state => {
+  const key = timeToString();
+  const alreadyLogged = state[key] && !state[key].today;
+  return {
+    alreadyLogged
+  };
+};
+
+const dispatchToProps = dispatch => ({
+  addEntry: (key, entry) => {
+    dispatch(
+      ActionCreator.addEntry({
+        [key]: entry
+      })
+    );
+  },
+
+  resetEntry: key => {
+    const entry = getDailyRemainderValue();
+    dispatch(
+      ActionCreator.addEntry({
+        [key]: entry
+      })
+    );
+  }
+});
+
+export default connect(
+  stateToProps,
+  dispatchToProps
+)(AddEntry);
