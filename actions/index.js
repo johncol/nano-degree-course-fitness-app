@@ -1,3 +1,6 @@
+const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
+const ADD_ENTRY = 'ADD_ENTRY';
+
 const receiveEntries = entries => ({
   type: RECEIVE_ENTRIES,
   payload: entries
@@ -8,10 +11,12 @@ const addEntry = entry => ({
   payload: entry
 });
 
+export const ActionType = {
+  RECEIVE_ENTRIES,
+  ADD_ENTRY
+};
+
 export const ActionCreator = {
   receiveEntries,
   addEntry
 };
-
-export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
-export const ADD_ENTRY = 'ADD_ENTRY';
