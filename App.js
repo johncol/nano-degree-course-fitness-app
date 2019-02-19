@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 
 import AddEntry from './components/AddEntry';
+import FlexboxExamples from './samples/FlexboxExamples';
 
 const store = createStore(reducers);
 
@@ -14,7 +15,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <AddEntry />
+          <FlexboxExamples />
         </View>
       </Provider>
     );
