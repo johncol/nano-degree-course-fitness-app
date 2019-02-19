@@ -1,22 +1,32 @@
 import React from 'react';
-import { View, Text, Slider as ReactNativeSlider } from 'react-native';
+import { View, Slider as ReactNativeSlider, StyleSheet } from 'react-native';
+
+import MetricInfo from './MetricInfo';
 
 const Slider = ({ step, value, onChange, max, unit }) => {
   return (
-    <View>
+    <View style={style.row}>
       <ReactNativeSlider
         step={step}
         value={value}
         minimumValue={0}
         maximumValue={max}
         onValueChange={onChange}
+        style={style.slider}
       />
-      <View>
-        <Text>{value}</Text>
-        <Text>{unit}</Text>
-      </View>
+      <MetricInfo value={value} unit={unit} />
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    flex: 1
+  },
+  slider: {
+    flex: 1
+  }
+});
 
 export default Slider;
