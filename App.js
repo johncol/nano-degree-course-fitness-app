@@ -6,7 +6,6 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 
 import AddEntry from './components/AddEntry';
-import FlexDemo from './samples/FlexDemo';
 
 const store = createStore(reducers);
 
@@ -15,7 +14,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <FlexDemo />
+          <AddEntry />
         </View>
       </Provider>
     );
@@ -24,10 +23,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: 'stretch',
-    justifyContent: 'center'
+    flex: 1
   }
 });
