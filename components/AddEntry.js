@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import * as API from './../utils/api';
@@ -15,6 +15,7 @@ import DateHeader from './DateHeader';
 import AlreadyLogged from './AlreadyLogged';
 import TextButton from './TextButton';
 import { ActionCreator } from '../actions';
+import { COLOR } from '../utils/colors';
 
 const initialState = {
   run: 0,
@@ -75,7 +76,7 @@ class AddEntry extends Component {
   renderMetric = (metricsInfo, metric) => {
     const { getIcon } = metricsInfo[metric];
     return (
-      <View key={metric}>
+      <View key={metric} style={style.metric}>
         {getIcon()}
         {this.getMetricComponent(metricsInfo, metric)}
       </View>
@@ -105,14 +106,45 @@ class AddEntry extends Component {
     const metrics = Object.keys(this.state);
     const metricsInfo = getMetricsMetaInfo();
     return (
-      <View>
+      <View style={style.container}>
         <DateHeader date={new Date().toLocaleDateString()} />
-        <View>{metrics.map(metric => this.renderMetric(metricsInfo, metric))}</View>
-        <TextButton onPress={this.submit}>Submit</TextButton>
+        <View style={style.metrics}>
+          {metrics.map(metric => this.renderMetric(metricsInfo, metric))}
+        </View>
+        <TextButton
+          onPress={this.submit}
+          buttonStyle={style.submitButton}
+          buttonTextStyle={style.submitButtonText}
+        >
+          Submit
+        </TextButton>
       </View>
     );
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: COLOR.white,
+    justifyContent: 'space-between'
+  },
+  submitButton: {
+    alignSelf: 'flex-end'
+  },
+  metric: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  metrics: {
+    justifyContent: 'space-between',
+    flex: 1,
+    paddingTop: 30,
+    paddingBottom: 30
+  }
+});
 
 const stateToProps = state => {
   const key = timeToString();
@@ -130,7 +162,6 @@ const dispatchToProps = dispatch => ({
       })
     );
   },
-
   resetEntry: key => {
     const entry = getDailyRemainderValue();
     dispatch(
