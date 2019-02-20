@@ -6,6 +6,8 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 
 import TabsNavigation from './components/TabsNavigation';
+import StatusBar from './components/StatusBar';
+import { COLOR } from './utils/colors';
 
 const store = createStore(reducers);
 
@@ -14,7 +16,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <View style={{ height: 20 }} />
+          <StatusBar backgroundColor={COLOR.purple} barStyle="light-content" />
           <TabsNavigation />
         </View>
       </Provider>
