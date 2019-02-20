@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
-import History from './components/History';
+import TabsNavigation from './components/TabsNavigation';
 
 const store = createStore(reducers);
 
@@ -15,7 +15,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={styles.container}>
           <View style={{ height: 20 }} />
-          <History />
+          <TabsNavigation />
         </View>
       </Provider>
     );
