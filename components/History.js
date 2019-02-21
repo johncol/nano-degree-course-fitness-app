@@ -11,6 +11,7 @@ import { timeToString, getDailyRemainderValue } from '../utils/helpers';
 import { COLOR } from '../utils/colors';
 import DateHeader from './DateHeader';
 import MetricCard from './MetricCard';
+import { Screen } from './AppNavigation';
 
 class History extends Component {
   state = {
@@ -38,9 +39,10 @@ class History extends Component {
         </View>
       </View>;
     }
+    const { navigate } = this.props.navigation;
     return (
       <View style={style.item}>
-        <TouchableOpacity onPress={() => console.log('pressed')}>
+        <TouchableOpacity onPress={() => navigate(Screen.EntryDetail, { entryId: key })}>
           <MetricCard date={formattedDate} metrics={metrics} />
         </TouchableOpacity>
       </View>
