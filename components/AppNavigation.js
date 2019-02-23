@@ -4,12 +4,9 @@ import TabsNavigation from './TabsNavigation';
 import EntryDetail from './EntryDetail';
 import { COLOR } from '../utils/colors';
 
-const Home = 'Home';
-const EntryDetail = 'EntryDetail';
-
 export const Screen = {
-  Home,
-  EntryDetail
+  Home: 'Home',
+  EntryDetail: 'EntryDetail'
 };
 
 const AppNavigation = createStackNavigator({
