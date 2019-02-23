@@ -13,6 +13,30 @@ import DateHeader from './DateHeader';
 import MetricCard from './MetricCard';
 import { Screen } from './../constants/Screens';
 
+const TouchableMetricCard = ({ navigate, entryId, date, metrics }) => (
+  <View style={style.item}>
+    <TouchableOpacity onPress={() => navigate(Screen.EntryDetail, { entryId })}>
+      <MetricCard date={date} metrics={metrics} />
+    </TouchableOpacity>
+  </View>
+);
+
+const DontForgetToLogCard = ({ date, reminder }) => (
+  <View style={style.item}>
+    <View>
+      <DateHeader date={date} />
+      <Text style={style.noDataText}>{reminder}</Text>
+    </View>
+  </View>
+);
+
+const NoDataCard = ({ date }) => (
+  <View style={style.item}>
+    <DateHeader date={date} />
+    <Text style={style.noDataText}>You did not log any data on this day</Text>
+  </View>
+);
+
 class History extends Component {
   state = {
     loading: true
@@ -31,31 +55,22 @@ class History extends Component {
   }
 
   renderItem = ({ today, ...metrics }, formattedDate, key) => {
-    if (today) {
-      <View style={style.item}>
-        <View>
-          <DateHeader date={formattedDate} />
-          <Text style={style.noDataText}>{today}</Text>
-        </View>
-      </View>;
+    if (Boolean(today)) {
+      return <DontForgetToLogCard date={formattedDate} reminder={today} />;
     }
-    const { navigate } = this.props.navigation;
+
     return (
-      <View style={style.item}>
-        <TouchableOpacity onPress={() => navigate(Screen.EntryDetail, { entryId: key })}>
-          <MetricCard date={formattedDate} metrics={metrics} />
-        </TouchableOpacity>
-      </View>
+      <TouchableMetricCard
+        navigate={this.props.navigation.navigate}
+        entryId={key}
+        date={formattedDate}
+        metrics={metrics}
+      />
     );
   };
 
   renderEmptyDate = formattedDate => {
-    return (
-      <View style={style.item}>
-        <DateHeader date={formattedDate} />
-        <Text style={style.noDataText}>You did not log any data on this day</Text>
-      </View>
-    );
+    return <NoDataCard date={formattedDate} />;
   };
 
   render() {
