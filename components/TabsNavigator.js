@@ -12,7 +12,7 @@ const tabs = {
     navigationOptions: {
       tabBarLabel: 'History',
       tabBarIcon: ({ tintColor }) => (
-        <MaterialIcons name="history" color={tintColor} size={25} />
+        <MaterialIcons name="event-note" color={tintColor} size={25} />
       )
     }
   },
