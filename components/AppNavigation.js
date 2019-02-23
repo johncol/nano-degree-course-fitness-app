@@ -5,18 +5,21 @@ import EntryDetail from './EntryDetail';
 import { Screen } from './../constants/Screens';
 import { COLOR } from '../utils/colors';
 
+const defaultNavigationOptions = {
+  headerTintColor: COLOR.white,
+  headerStyle: {
+    backgroundColor: COLOR.purple
+  }
+};
+
 const AppNavigation = createStackNavigator({
   [Screen.Home]: {
-    screen: TabsNavigation
+    screen: TabsNavigation,
+    navigationOptions: defaultNavigationOptions
   },
   [Screen.EntryDetail]: {
     screen: EntryDetail,
-    navigationOptions: {
-      headerTintColor: COLOR.white,
-      headerStyle: {
-        backgroundColor: COLOR.purple
-      }
-    }
+    navigationOptions: defaultNavigationOptions
   }
 });
 

@@ -45,5 +45,8 @@ const config = {
 };
 
 const TabsNavigation = createBottomTabNavigator(tabs, config);
+TabsNavigation.navigationOptions = () => {
+  return { title: 'Entries' };
+};
 
 export default TabsNavigation;
