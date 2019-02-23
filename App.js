@@ -6,13 +6,13 @@ import { createAppContainer } from 'react-navigation';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
-import AppNavigation from './components/AppNavigation';
+import MainNavigator from './components/MainNavigator';
 import StatusBar from './components/StatusBar';
 import { COLOR } from './utils/colors';
 
 const store = createStore(reducers);
 
-const MainApp = createAppContainer(AppNavigation);
+const MainApp = createAppContainer(MainNavigator);
 
 export default class App extends React.Component {
   render() {

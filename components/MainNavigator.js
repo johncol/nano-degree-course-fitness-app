@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
 
-import TabsNavigation from './TabsNavigation';
+import TabsNavigator from './TabsNavigator';
 import EntryDetail from './EntryDetail';
 import { Screens } from './../constants/Screens';
 import { COLOR } from '../utils/colors';
@@ -12,9 +12,9 @@ const defaultNavigationOptions = {
   }
 };
 
-const AppNavigation = createStackNavigator({
+const MainNavigator = createStackNavigator({
   [Screens.Home]: {
-    screen: TabsNavigation,
+    screen: TabsNavigator,
     navigationOptions: defaultNavigationOptions
   },
   [Screens.EntryDetail]: {
@@ -23,4 +23,4 @@ const AppNavigation = createStackNavigator({
   }
 });
 
-export default AppNavigation;
+export default MainNavigator;

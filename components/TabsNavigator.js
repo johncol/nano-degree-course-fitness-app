@@ -44,9 +44,9 @@ const config = {
   }
 };
 
-const TabsNavigation = createBottomTabNavigator(tabs, config);
-TabsNavigation.navigationOptions = () => {
+const TabsNavigator = createBottomTabNavigator(tabs, config);
+TabsNavigator.navigationOptions = () => {
   return { title: 'Entries' };
 };
 
-export default TabsNavigation;
+export default TabsNavigator;
