@@ -4,25 +4,41 @@ import DateHeader from './DateHeader';
 import { getMetricsMetaInfo } from './../utils/helpers';
 import { COLOR } from './../utils/colors';
 
+const NoMetricsAvailable = () => (
+  <View>
+    <Text>No metrics found for this day</Text>
+  </View>
+);
+
+const MetricItem = ({ metrics, metric }) => {
+  const { getIcon, displayName, unit } = getMetricsMetaInfo(metric);
+  const value = metrics[metric];
+  return (
+    <View style={style.metric}>
+      {getIcon()}
+      <View>
+        <Text style={style.metricName}>{displayName}</Text>
+        <Text style={style.metricValue}>
+          {value} {unit}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
 const MetricCard = ({ date, metrics }) => {
+  const noMetricsAvailable = !metrics || metrics.today;
+  if (noMetricsAvailable) {
+    return <NoMetricsAvailable />;
+  }
+
   const metricNames = Object.keys(metrics);
   return (
     <View>
       {date && <DateHeader date={date} />}
-      {metricNames.map(metric => {
-        const { getIcon, displayName, unit } = getMetricsMetaInfo(metric);
-        return (
-          <View style={style.metric} key={metric}>
-            {getIcon()}
-            <View>
-              <Text style={style.metricName}>{displayName}</Text>
-              <Text style={style.metricUnit}>
-                {metrics[metric]} {unit}
-              </Text>
-            </View>
-          </View>
-        );
-      })}
+      {metricNames.map(metric => (
+        <MetricItem key={metric} metric={metric} metrics={metrics} />
+      ))}
     </View>
   );
 };
@@ -35,7 +51,7 @@ const style = StyleSheet.create({
   metricName: {
     fontSize: 20
   },
-  metricUnit: {
+  metricValue: {
     fontSize: 16,
     color: COLOR.gray
   }
