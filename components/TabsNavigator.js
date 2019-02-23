@@ -1,9 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 
 import History from './History';
 import AddEntry from './AddEntry';
+import Live from './Live';
 import { COLOR } from '../utils/colors';
 
 const tabs = {
@@ -22,6 +23,15 @@ const tabs = {
       tabBarLabel: 'Add Entry',
       tabBarIcon: ({ tintColor }) => (
         <MaterialIcons name="playlist-add" color={tintColor} size={25} />
+      )
+    }
+  },
+  Live: {
+    screen: Live,
+    navigationOptions: {
+      tabBarLabel: 'Live',
+      tabBarIcon: ({ tintColor }) => (
+        <SimpleLineIcons name="speedometer" color={tintColor} size={25} />
       )
     }
   }
