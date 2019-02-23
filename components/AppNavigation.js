@@ -2,12 +2,8 @@ import { createStackNavigator } from 'react-navigation';
 
 import TabsNavigation from './TabsNavigation';
 import EntryDetail from './EntryDetail';
+import { Screen } from './../constants/Screens';
 import { COLOR } from '../utils/colors';
-
-export const Screen = {
-  Home: 'Home',
-  EntryDetail: 'EntryDetail'
-};
 
 const AppNavigation = createStackNavigator({
   [Screen.Home]: {

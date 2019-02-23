@@ -11,7 +11,7 @@ import { timeToString, getDailyRemainderValue } from '../utils/helpers';
 import { COLOR } from '../utils/colors';
 import DateHeader from './DateHeader';
 import MetricCard from './MetricCard';
-import { Screen } from './AppNavigation';
+import { Screen } from './../constants/Screens';
 
 class History extends Component {
   state = {
