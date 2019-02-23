@@ -127,5 +127,5 @@ export const getMetricsMetaInfo = metric => {
 };
 
 export const getDailyRemainderValue = () => ({
-  today: 'Hey! Do not forget to register your daily information'
+  today: "👋 Don't forget to log your data today!"
 });
