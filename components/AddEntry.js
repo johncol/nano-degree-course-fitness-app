@@ -88,6 +88,7 @@ class AddEntry extends Component {
     const entry = this.state;
     API.sumbitEntry(key, entry);
     this.props.addEntry(key, entry);
+    this.props.navigation.goBack();
   };
 
   reset = () => {
@@ -146,10 +147,11 @@ const style = StyleSheet.create({
   }
 });
 
-const stateToProps = state => {
+const stateToProps = (state, { navigation }) => {
   const key = timeToString();
   const alreadyLogged = state[key] && !state[key].today;
   return {
+    navigation,
     alreadyLogged
   };
 };
