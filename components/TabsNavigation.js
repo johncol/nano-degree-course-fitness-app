@@ -1,4 +1,7 @@
+import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
+import { MaterialIcons } from '@expo/vector-icons';
+
 import History from './History';
 import AddEntry from './AddEntry';
 import { COLOR } from '../utils/colors';
@@ -7,13 +10,19 @@ const tabs = {
   History: {
     screen: History,
     navigationOptions: {
-      tabBarLabel: 'History'
+      tabBarLabel: 'History',
+      tabBarIcon: ({ tintColor }) => (
+        <MaterialIcons name="history" color={tintColor} size={25} />
+      )
     }
   },
   AddEntry: {
     screen: AddEntry,
     navigationOptions: {
-      tabBarLabel: 'Add Entry'
+      tabBarLabel: 'Add Entry',
+      tabBarIcon: ({ tintColor }) => (
+        <MaterialIcons name="playlist-add" color={tintColor} size={25} />
+      )
     }
   }
 };
