@@ -1,4 +1,4 @@
-export const Screen = {
+export const Screens = {
   Home: 'Home',
   EntryDetail: 'EntryDetail'
 };

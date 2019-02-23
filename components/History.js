@@ -11,11 +11,11 @@ import { timeToString, getDailyRemainderValue } from '../utils/helpers';
 import { COLOR } from '../utils/colors';
 import DateHeader from './DateHeader';
 import MetricCard from './MetricCard';
-import { Screen } from './../constants/Screens';
+import { Screens } from './../constants/Screens';
 
 const TouchableMetricCard = ({ navigate, entryId, date, metrics }) => (
   <View style={style.item}>
-    <TouchableOpacity onPress={() => navigate(Screen.EntryDetail, { entryId })}>
+    <TouchableOpacity onPress={() => navigate(Screens.EntryDetail, { entryId })}>
       <MetricCard date={date} metrics={metrics} />
     </TouchableOpacity>
   </View>
