@@ -3,6 +3,18 @@ import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 
 import { Permissions } from './../constants/Permissions';
 
+const PermissionsDenied = () => (
+  <View>
+    <Text>{Permissions.DENIED}</Text>
+  </View>
+);
+
+const PermissionsUndetermined = () => (
+  <View>
+    <Text>{Permissions.UNDETERMINED}</Text>
+  </View>
+);
+
 class Live extends Component {
   state = {
     permissions: null,
@@ -15,21 +27,11 @@ class Live extends Component {
     if (!permissions) {
       return <ActivityIndicator style={style.activityIdicator} />;
     }
-
     if (permissions === Permissions.DENIED) {
-      return (
-        <View>
-          <Text>{Permissions.DENIED}</Text>
-        </View>
-      );
+      return <PermissionsDenied />;
     }
-
     if (permissions === Permissions.UNDETERMINED) {
-      return (
-        <View>
-          <Text>{Permissions.UNDETERMINED}</Text>
-        </View>
-      );
+      return <PermissionsUndetermined />;
     }
 
     return (
