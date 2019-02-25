@@ -25,6 +25,15 @@ const initialState = {
   eat: 0
 };
 
+const MetricsList = ({ metrics }) => {
+  const metricsInfo = getMetricsMetaInfo();
+  return (
+    <View style={style.metrics}>
+      {metrics.map(metric => this.renderMetric(metricsInfo, metric))}
+    </View>
+  );
+};
+
 class AddEntry extends Component {
   state = { ...initialState };
 
@@ -104,14 +113,10 @@ class AddEntry extends Component {
       return <AlreadyLogged onReset={this.reset} />;
     }
 
-    const metrics = Object.keys(this.state);
-    const metricsInfo = getMetricsMetaInfo();
     return (
       <View style={style.container}>
         <DateHeader date={new Date().toLocaleDateString()} />
-        <View style={style.metrics}>
-          {metrics.map(metric => this.renderMetric(metricsInfo, metric))}
-        </View>
+        <MetricsList metrics={Object.keys(this.state)} />
         <TextButton
           onPress={this.submit}
           buttonStyle={style.submitButton}
