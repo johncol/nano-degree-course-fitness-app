@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import MetricCard from './MetricCard';
 import TextButton from './TextButton';
 import { COLOR } from './../utils/colors';
-import * as API from './../utils/api';
 import { ActionCreator } from '../actions';
 import { getDailyRemainderValue, timeToString } from '../utils/helpers';
+import * as API from './../utils/api';
 
 class EntryDetail extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -57,6 +57,7 @@ const stateToProps = (state, props) => {
     metrics
   };
 };
+
 const dispatchToProps = dispatch => ({
   resetEntry: key => {
     const todayKey = timeToString();
