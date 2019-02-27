@@ -48,7 +48,7 @@ export const MetricType = {
   SLIDER: 'slider'
 };
 
-const styles = StyleSheet.create({
+const iconsStyles = StyleSheet.create({
   iconContainer: {
     padding: 5,
     borderRadius: 8,
@@ -69,7 +69,7 @@ export const getMetricsMetaInfo = metric => {
       step: 1,
       type: MetricType.STEPPERS,
       getIcon: () => (
-        <View style={[styles.iconContainer, { backgroundColor: COLOR.red }]}>
+        <View style={[iconsStyles.iconContainer, { backgroundColor: COLOR.red }]}>
           <MaterialIcons name="directions-run" color={COLOR.white} size={35} />
         </View>
       )
@@ -81,7 +81,7 @@ export const getMetricsMetaInfo = metric => {
       step: 1,
       type: MetricType.STEPPERS,
       getIcon: () => (
-        <View style={[styles.iconContainer, { backgroundColor: COLOR.orange }]}>
+        <View style={[iconsStyles.iconContainer, { backgroundColor: COLOR.orange }]}>
           <MaterialCommunityIcons name="bike" color={COLOR.white} size={35} />
         </View>
       )
@@ -93,7 +93,7 @@ export const getMetricsMetaInfo = metric => {
       step: 100,
       type: MetricType.STEPPERS,
       getIcon: () => (
-        <View style={[styles.iconContainer, { backgroundColor: COLOR.blue }]}>
+        <View style={[iconsStyles.iconContainer, { backgroundColor: COLOR.blue }]}>
           <MaterialCommunityIcons name="swim" color={COLOR.white} size={35} />
         </View>
       )
@@ -105,7 +105,7 @@ export const getMetricsMetaInfo = metric => {
       step: 1,
       type: MetricType.SLIDER,
       getIcon: () => (
-        <View style={[styles.iconContainer, { backgroundColor: COLOR.purple }]}>
+        <View style={[iconsStyles.iconContainer, { backgroundColor: COLOR.purple }]}>
           <FontAwesome name="bed" color={COLOR.white} size={35} />
         </View>
       )
@@ -117,7 +117,7 @@ export const getMetricsMetaInfo = metric => {
       step: 1,
       type: MetricType.SLIDER,
       getIcon: () => (
-        <View style={[styles.iconContainer, { backgroundColor: COLOR.pink }]}>
+        <View style={[iconsStyles.iconContainer, { backgroundColor: COLOR.pink }]}>
           <MaterialCommunityIcons name="food" color={COLOR.white} size={35} />
         </View>
       )
