@@ -48,6 +48,13 @@ export const MetricType = {
   SLIDER: 'slider'
 };
 
+export const Units = {
+  MILES: 'miles',
+  METER: 'meter',
+  HOURS: 'hours',
+  RATING: 'rating'
+};
+
 const iconsStyles = StyleSheet.create({
   iconContainer: {
     padding: 5,
@@ -65,7 +72,7 @@ export const getMetricsMetaInfo = metric => {
     run: {
       displayName: 'Run',
       max: 50,
-      unit: 'miles',
+      unit: Units.MILES,
       step: 1,
       type: MetricType.STEPPERS,
       getIcon: () => (
@@ -77,7 +84,7 @@ export const getMetricsMetaInfo = metric => {
     bike: {
       displayName: 'Bike',
       max: 100,
-      unit: 'miles',
+      unit: Units.MILES,
       step: 1,
       type: MetricType.STEPPERS,
       getIcon: () => (
@@ -89,7 +96,7 @@ export const getMetricsMetaInfo = metric => {
     swim: {
       displayName: 'Swim',
       max: 9900,
-      unit: 'meter',
+      unit: Units.METER,
       step: 100,
       type: MetricType.STEPPERS,
       getIcon: () => (
@@ -101,7 +108,7 @@ export const getMetricsMetaInfo = metric => {
     sleep: {
       displayName: 'Sleep',
       max: 24,
-      unit: 'hours',
+      unit: Units.HOURS,
       step: 1,
       type: MetricType.SLIDER,
       getIcon: () => (
@@ -113,7 +120,7 @@ export const getMetricsMetaInfo = metric => {
     eat: {
       displayName: 'Eat',
       max: 10,
-      unit: 'rating',
+      unit: Units.RATING,
       step: 1,
       type: MetricType.SLIDER,
       getIcon: () => (
