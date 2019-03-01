@@ -7,17 +7,23 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Foundation from '@expo/vector-icons/Foundation';
+import { Location, Permissions } from 'expo';
 
-import { Permissions } from './../constants/Permissions';
+import { PermissionStatus } from './../constants/PermissionStatus';
+import { LocationSettings } from './../constants/Location';
 import { COLOR } from './../utils/colors';
+import { calculateDirection } from './../utils/helpers';
 
-const PermissionsDenied = () => (
+const PermissionsDenied = ({ onEnableLocation: askForLocationPermission }) => (
   <View style={style.center}>
     <Foundation name="alert" size={50} />
     <Text>
       You denied your location. You can fix this by visiting your settings and enabling
       location services for this app.
     </Text>
+    <TouchableOpacity style={style.button} onPress={askForLocationPermission}>
+      <Text style={style.buttonText}>Enable</Text>
+    </TouchableOpacity>
   </View>
 );
 
@@ -31,18 +37,22 @@ const PermissionsUndetermined = ({ onEnableLocation: askForLocationPermission })
   </View>
 );
 
-const PermissionsGranted = ({}) => (
-  <View style={style.container}>
-    <View style={style.directionContainer}>
-      <Text style={style.header}>You're heading</Text>
-      <Text style={style.direction}>North</Text>
+const PermissionsGranted = ({ coords, direction }) => {
+  const altitude = Math.round(coords.altitude * 3.2808);
+  const speed = (coords.speed * 2.2369).toFixed(1);
+  return (
+    <View style={style.container}>
+      <View style={style.directionContainer}>
+        <Text style={style.header}>You're heading</Text>
+        <Text style={style.direction}>{direction}</Text>
+      </View>
+      <View style={style.metricContainer}>
+        <LiveMetric metricName="Altitude" value={altitude} unit="feet" />
+        <LiveMetric metricName="Speed" value={speed} unit="MPH" />
+      </View>
     </View>
-    <View style={style.metricContainer}>
-      <LiveMetric metricName="Altitude" value={200} unit="feet" />
-      <LiveMetric metricName="Speed" value={300} unit="MPH" />
-    </View>
-  </View>
-);
+  );
+};
 
 const LiveMetric = ({ metricName, value, unit }) => (
   <View style={style.metric}>
@@ -55,29 +65,68 @@ const LiveMetric = ({ metricName, value, unit }) => (
 
 class Live extends Component {
   state = {
-    permissions: Permissions.GRANTED,
+    permissionStatus: null,
     coords: null,
     direction: null
   };
 
-  askForLocationPermission = () => {};
+  updatePermissionStatusAndWatchLocationIfGranted = ({ status: permissionStatus }) => {
+    if (permissionStatus === PermissionStatus.GRANTED) {
+      return this.watchLocation();
+    }
+    this.setState({ permissionStatus });
+  };
+
+  componentDidMount() {
+    Permissions.getAsync(Permissions.LOCATION)
+      .then(this.updatePermissionStatusAndWatchLocationIfGranted)
+      .catch(error => {
+        console.warn('Error getting location: ', error);
+        this.setState({
+          permissionStatus: PermissionStatus.UNDETERMINED
+        });
+      });
+  }
+
+  askForLocationPermission = () => {
+    Permissions.askAsync(Permissions.LOCATION)
+      .then(result => {
+        this.updatePermissionStatusAndWatchLocationIfGranted(result);
+      })
+      .catch(error => {
+        console.warn('Error asking location permissions: ', error);
+      });
+  };
+
+  watchLocation = () => {
+    Location.watchPositionAsync(LocationSettings, ({ coords }) => {
+      const direction = calculateDirection(coords.heading);
+      const permissionStatus = PermissionStatus.GRANTED;
+
+      this.setState({
+        coords,
+        direction,
+        permissionStatus
+      });
+    });
+  };
 
   render() {
-    const { permissions } = this.state;
+    const { permissionStatus, coords, direction } = this.state;
 
-    if (!permissions) {
+    if (!permissionStatus) {
       return <ActivityIndicator style={style.activityIdicator} />;
     }
 
-    if (permissions === Permissions.UNDETERMINED) {
+    if (permissionStatus === PermissionStatus.UNDETERMINED) {
       return <PermissionsUndetermined onEnableLocation={this.askForLocationPermission} />;
     }
 
-    if (permissions === Permissions.DENIED) {
-      return <PermissionsDenied />;
+    if (permissionStatus === PermissionStatus.DENIED) {
+      return <PermissionsDenied onEnableLocation={this.askForLocationPermission} />;
     }
 
-    return <PermissionsGranted />;
+    return <PermissionsGranted coords={coords} direction={direction} />;
   }
 }
 
