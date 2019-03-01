@@ -12,8 +12,12 @@ import { Permissions } from './../constants/Permissions';
 import { COLOR } from './../utils/colors';
 
 const PermissionsDenied = () => (
-  <View>
-    <Text>{Permissions.DENIED}</Text>
+  <View style={style.center}>
+    <Foundation name="alert" size={50} />
+    <Text>
+      You denied your location. You can fix this by visiting your settings and enabling
+      location services for this app.
+    </Text>
   </View>
 );
 
@@ -29,7 +33,7 @@ const PermissionsUndetermined = ({ onEnableLocation: askForLocationPermission })
 
 class Live extends Component {
   state = {
-    permissions: Permissions.UNDETERMINED,
+    permissions: Permissions.DENIED,
     coords: null,
     direction: null
   };
