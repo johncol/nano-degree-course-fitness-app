@@ -25,11 +25,11 @@ const initialState = {
   eat: 0
 };
 
-const MetricsList = ({ metrics }) => {
+const MetricsList = ({ metrics, renderMetric }) => {
   const metricsInfo = getMetricsMetaInfo();
   return (
     <View style={style.metrics}>
-      {metrics.map(metric => this.renderMetric(metricsInfo, metric))}
+      {metrics.map(metric => renderMetric(metricsInfo, metric))}
     </View>
   );
 };
@@ -116,7 +116,7 @@ class AddEntry extends Component {
     return (
       <View style={style.container}>
         <DateHeader date={new Date().toLocaleDateString()} />
-        <MetricsList metrics={Object.keys(this.state)} />
+        <MetricsList metrics={Object.keys(this.state)} renderMetric={this.renderMetric} />
         <TextButton
           onPress={this.submit}
           buttonStyle={style.submitButton}
