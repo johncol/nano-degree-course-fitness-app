@@ -9,12 +9,17 @@ import reducers from './reducers';
 import MainNavigator from './components/MainNavigator';
 import StatusBar from './components/StatusBar';
 import { COLOR } from './utils/colors';
+import { scheduleNextNotification } from './utils/notification';
 
 const store = createStore(reducers);
 
 const MainApp = createAppContainer(MainNavigator);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    scheduleNextNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>

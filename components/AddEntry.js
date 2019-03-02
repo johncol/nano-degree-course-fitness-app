@@ -16,6 +16,10 @@ import AlreadyLogged from './AlreadyLogged';
 import TextButton from './TextButton';
 import { ActionCreator } from '../actions';
 import { COLOR } from '../utils/colors';
+import {
+  cancelCurrentNotification,
+  scheduleNextNotification
+} from '../utils/notification';
 
 const initialState = {
   run: 0,
@@ -98,6 +102,7 @@ class AddEntry extends Component {
     API.sumbitEntry(key, entry);
     this.props.addEntry(key, entry);
     this.props.navigation.goBack();
+    cancelCurrentNotification().then(scheduleNextNotification);
   };
 
   reset = () => {
