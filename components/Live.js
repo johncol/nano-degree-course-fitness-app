@@ -8,7 +8,7 @@ import { calculateDirection } from './../utils/helpers';
 import LiveComponentStyles from './live/LiveComponentStyles';
 import PermissionsDenied from './live/PermissionsDenied';
 import PermissionsUndetermined from './live/PermissionsUndetermined';
-import PermissionsGranted from './live/PermissionsGranted';
+import LocationInfo from './live/LocationInfo';
 
 class Live extends Component {
   state = {
@@ -69,7 +69,7 @@ class Live extends Component {
       return <PermissionsDenied onEnableLocation={this.askForLocationPermission} />;
     }
 
-    return <PermissionsGranted coords={coords} direction={direction} />;
+    return <LocationInfo coords={coords} direction={direction} />;
   }
 }
 

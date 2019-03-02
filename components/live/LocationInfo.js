@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import LiveComponentStyles from './LiveComponentStyles';
 import LiveMetric from './LiveMetric';
 
-const PermissionsGranted = ({ coords, direction }) => {
+const LocationInfo = ({ coords, direction }) => {
   const altitude = Math.round(coords.altitude * 3.2808);
   const speed = (coords.speed * 2.2369).toFixed(1);
   return (
@@ -20,4 +20,4 @@ const PermissionsGranted = ({ coords, direction }) => {
     </View>
   );
 };
-export default PermissionsGranted;
+export default LocationInfo;
